@@ -47,7 +47,7 @@ class SharedSecret
         return $this->secret;
     }
 
-    public function getQRCode()
+    public function generateQRCode()
     {
         $ga = new GoogleAuthenticator();
         return $ga->getQRCode('HighWire', $this->secret);
