@@ -148,9 +148,10 @@ class DefaultController extends Controller
             );
         }
 
-        $sharedSecret = $this->getDoctrine()->getRepository('AppBundle:SharedSecret')->find($account);
+        $em = $this->getDoctrine()->getManager();
+        $ss = $em->getRepository('AppBundle:SharedSecret')->find($account);
 
-        $ok = $sharedSecret->verifyAccessToken($access_token);
+        $ok = $ss->verifyAccessToken($access_token);
 
         if (!$ok) {
             return new Response(
@@ -159,16 +160,14 @@ class DefaultController extends Controller
             );
         }
 
-        $ok = $sharedSecret->verifyToken($params['token']);
-
-        $ss = new SharedSecret();
-        $ss->setEmail('patrick.d.hayes@gmail.com');
-        $ss->generateSharedSecret();
-        
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($ss);
+        // Delete the one time access token to mark the secret as distributed
+        $ss->markDistributed();
         $em->flush();
 
-        return new Response('Saved new secret with id '.$ss->getEmail());      
+        return $this->render('default/fetch.html.twig', array(
+            'email' => $ss->getEmail(), 
+            'secret' => $ss->getSharedSecret(), 
+            'qrcode' => base64_encode($ss->getQRCode()), 
+        ));
     }
 }
