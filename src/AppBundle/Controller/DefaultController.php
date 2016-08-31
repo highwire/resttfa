@@ -167,7 +167,7 @@ class DefaultController extends Controller
         return $this->render('default/fetch.html.twig', array(
             'email' => $ss->getEmail(), 
             'secret' => $ss->getSharedSecret(), 
-            'qrcode' => base64_encode($ss->getQRCode()), 
+            'qrcode' => base64_encode($ss->generateQRCode()), 
         ));
     }
 }
