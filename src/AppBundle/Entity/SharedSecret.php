@@ -81,10 +81,10 @@ class SharedSecret
     }
 
     public function IsDistributed() {
-        return (empty($this->$accessToken) && !empty($this->secret));
+        return (empty($this->accessToken) && !empty($this->secret));
     }
 
     public function markDistributed() {
-        $this->$accessToken = '';
+        $this->accessToken = '';
     }
 }
