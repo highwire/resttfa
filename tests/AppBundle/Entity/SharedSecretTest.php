@@ -14,10 +14,13 @@ class SharedSecretTest extends \PHPUnit_Framework_TestCase
 
         $secret = $ss->getSharedSecret();
 
-        print var_dump($secret);
+        // The shared-secret should be 16 bytes long encoded
+        $this->assertEquals(16, strlen($secret));
+
+        // The shared-secret should properly decode
         $decoded = Base32::decode($secret);
 
-        // The shared-secret should be 32 bytes long
-        $this->assertEquals(16, strlen($decoded));
+        // The shared-secret should be 10 bytes (80 bits of security) long decoded
+        $this->assertEquals(10, strlen($decoded));
     }
 }

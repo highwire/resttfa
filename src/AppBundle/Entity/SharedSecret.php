@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Base32\Base32;
+use GoogleAuthenticator\GoogleAuthenticator;
 
 /**
  * @ORM\Entity
@@ -36,8 +37,9 @@ class SharedSecret
 
     public function generateSharedSecret()
     {
-        $this->secret = $this->generateSecureRandom();
-        $this->accessToken = $this->generateSecureRandom();
+        $ga = new GoogleAuthenticator();
+        $this->secret = $ga->createSecret();
+        $this->accessToken = $ga->createSecret();
     }
 
     public function getSharedSecret()
@@ -45,9 +47,18 @@ class SharedSecret
         return $this->secret;
     }
 
+    public function verifyToken($token) {
+        $ga = new GoogleAuthenticator();
+        return $ga->verifyCode($this->secret, 2);
+    }
+
     public function getAccessToken()
     {
         return $this->accessToken;
+    }
+
+    public function verifyAccessToken($user_acces_token) {
+        return hash_equals($this->accessToken, $user_acces_token);
     }
 
     public function getEmail()
@@ -69,17 +80,5 @@ class SharedSecret
 
     public function markDistributed() {
         $this->$accessToken = '';
-    }
-
-    /**
-     * Securely generate random bytes in base32 encoding
-     * 
-     * @param int $bytes
-     *   Number of bytes to generate. Defaults to 16, which is 128 bits. 
-     */
-    private function generateSecureRandom($numbytes= 16) {
-        $rnd = random_bytes($numbytes);
-        $encoded = Base32::encode($rnd);
-        return $encoded;
     }
 }
