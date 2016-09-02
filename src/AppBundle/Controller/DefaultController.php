@@ -16,14 +16,26 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="login")
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
-        ]);
+        $authenticationUtils = $this->get('security.authentication_utils');
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render(
+            'security/login.html.twig',
+            array(
+                // last username entered by the user
+                'last_username' => $lastUsername,
+                'error'         => $error,
+            )
+        );
     }
 
      /**
@@ -81,7 +93,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/admin")
+     * @Route("/admin", name="admin"))
      */
     public function adminAction(Request $request)
     {
@@ -125,6 +137,11 @@ class DefaultController extends Controller
                     'text/html'
                 );
             $this->get('mailer')->send($message);
+
+            $this->addFlash(
+                'notice',
+                'Secret has been generated and an email sent to ' . $ss->getEmail()
+            );
         }
 
         return $this->render('default/new.html.twig', array(

@@ -73,6 +73,19 @@
         <!-- /.container-fluid -->
     </nav>
 
+    <section id="messages">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    {% for flash_message in app.session.flashBag.get('notice') %}
+                    <div class="flash-notice">
+                        {{ flash_message }}
+                    </div>
+                    {% endfor %}
+            </div>
+        </div>
+    </section>
+
     <section id="content">
         <div class="container">
             <div class="row">
