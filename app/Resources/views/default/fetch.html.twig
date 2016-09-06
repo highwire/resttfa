@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<img src="data:image/png;base64,{{qrcode}}" />
+
+<h3>Secret Key: {{secret}}</h3>
+
+<div class="instructions text-left">
+    <h3>Instructions:</h3>
+
+    <ol>
+    <li>If you haven't done so already, download the Google Authenticator app. 
+    <ul>
+        <li>Android: <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2</a></li>
+        <li>iPhone:  <a href="https://itunes.apple.com/ca/app/google-authenticator/id388497605">https://itunes.apple.com/ca/app/google-authenticator/id388497605</a></li>
+    </ul>
+    </li>
+    <li>On your mobile device, open the Google Authenticator application.</li>
+    <li>If this is the first time you have used Authenticator, select Begin setup. If you are adding a new account, choose Set up account from the app's menu.</li>
+    <li>To link your mobile device to your account:
+    <ul>
+        <li><strong>Using QR code</strong>: Select <strong>Scan the image provided in the one-timelink</strong>. If the Authenticator app cannot locate a barcode scanner app on your mobile device, you might be prompted to download and install one. If you want to install a barcode scanner app so you can complete the setup process, select <strong>Install</strong>, then go through the installation process. Once the app is installed, reopen Google Authenticator, then point your camera at the QR code on your computer screen.</li>
+        <li><strong>Using secret key</strong>: Select <strong>Enter provided key</strong>, then enter the email address of your Google Account in the "Enter account name" box. Next, enter the secret key on your computer screen in the "Enter your key" box. Make sure you've chosen to make the key <strong>Time based</strong>, then select <strong>Add</strong>.</li>
+    </ul>
+    </li>
+</div>
+{% endblock %}
