@@ -55,7 +55,7 @@ class SharedSecret
 
     public function verifyToken($token) {
         $ga = new GoogleAuthenticator();
-        return $ga->verifyCode($this->secret, 2);
+        return $ga->verifyCode($this->secret, $token, 2);
     }
 
     public function getAccessToken()
