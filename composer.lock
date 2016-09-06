@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bfc484bc4805adbd3a042f9da0878108",
-    "content-hash": "db2d89f8fbfa5a6dcb74b023d128fa68",
+    "hash": "2fe7660af6689f023b2a5e4cf0e8ecb4",
+    "content-hash": "09e469e33eb4edb722b503997e6336e7",
     "packages": [
         {
             "name": "christian-riesen/base32",
@@ -882,11 +882,11 @@
         },
         {
             "name": "highwire/googleauthenticator",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/highwire/googleauthenticator.git",
-                "reference": "b8b660f57cb0c64697f97d684db253b79bb99457"
+                "reference": "47a544220ddfdec889ceb7c7ac4cf887fe20d6f2"
             },
             "require": {
                 "endroid/qrcode": "^1.7"
@@ -914,7 +914,7 @@
             "keywords": [
                 "GoogleAuthenticator"
             ],
-            "time": "2016-08-31 22:17:56"
+            "time": "2016-09-06 17:43:11"
         },
         {
             "name": "incenteev/composer-parameter-handler",
